@@ -55,7 +55,7 @@ settings.skipNumberOfBytes     = 0;
 % This is a "default" name of the data file (signal record) to be used in
 % the post-processing mode
 settings.fileName           = ...
-   '..\GNSS_signal_records\GPSdata-DiscreteComponents-fs38_192-if9_55.bin';
+   '..\GPSdata-DiscreteComponents-fs38_192-if9_55.bin';
 % Data type used to store one sample
 settings.dataType           = 'int8';
 

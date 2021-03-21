@@ -55,11 +55,10 @@ travelTime = inf(1, settings.numberOfChannels);
 % Find number of samples per spreading code
 samplesPerCode = round(settings.samplingFreq / ...
                         (settings.codeFreqBasis / settings.codeLength));
-
+% TODO Hard coded to run the loop 8 times (Max number of channels) should be extracted from channelList
 %--- For all channels in the list ... 
-for channelNr = channelList
-
-    %--- Compute the travel times -----------------------------------------    
+for channelNr = 1:8
+    %--- Compute the travel times -----------------------------------------
     travelTime(channelNr) = ...
         trackResults(channelNr).absoluteSample(msOfTheSignal(channelNr)) / samplesPerCode;
 end

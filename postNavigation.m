@@ -97,12 +97,15 @@ for channelNr = activeChnList
     if (isempty(eph(trackResults(channelNr).PRN).IODC) || ...
         isempty(eph(trackResults(channelNr).PRN).IODE_sf2) || ...
         isempty(eph(trackResults(channelNr).PRN).IODE_sf3))
-
+        disp("channel didnt have required nav data");
         %--- Exclude channel from the list (from further processing) ------
         activeChnList = setdiff(activeChnList, channelNr);
     end    
 end
 
+disp("active Channel list state after decoding Ephemerides")
+disp(activeChnList);
+disp(size(activeChnList, 2))
 %% Check if the number of satellites is still above 3 =====================
 if (isempty(activeChnList) || (size(activeChnList, 2) < 4))
     % Show error message and exit
@@ -135,10 +138,10 @@ transmitTime = TOW;
 %% Initialization of current measurement ==================================
 for currMeasNr = 1:fix((settings.msToProcess - max(subFrameStart)) / ...
                                                      settings.navSolPeriod)
-
+% TODO Check why all 7 sattelites are being excluded at this stage, probably a bug
     % Exclude satellites, that are belove elevation mask 
-    activeChnList = intersect(find(satElev >= settings.elevationMask), ...
-                              readyChnList);
+   % activeChnList = intersect(find(satElev >= settings.elevationMask), ...
+     %                         readyChnList);
 
     % Save list of satellites used for position calculation
     navSolutions.channel.PRN(activeChnList, currMeasNr) = ...
@@ -151,18 +154,20 @@ for currMeasNr = 1:fix((settings.msToProcess - max(subFrameStart)) / ...
                                          NaN(settings.numberOfChannels, 1);
     navSolutions.channel.az(:, currMeasNr) = ...
                                          NaN(settings.numberOfChannels, 1);
+                                     
+   disp("num of channels after init of current meas - " +  size(activeChnList, 2));
 
 %% Find pseudoranges ======================================================
     navSolutions.channel.rawP(:, currMeasNr) = calculatePseudoranges(...
             trackResults, ...
             subFrameStart + settings.navSolPeriod * (currMeasNr-1), ...
             activeChnList, settings);
-
+   disp("num of channels after find pseudoranges - " +  size(activeChnList, 2));
 %% Find satellites positions and clocks corrections =======================
     [satPositions, satClkCorr] = satpos(transmitTime, ...
                                         [trackResults(activeChnList).PRN], ...
                                         eph, settings);
-
+   disp("num of channels after after find sat positions - " +  size(activeChnList, 2));
 %% Find receiver position =================================================
 
     % 3D receiver position can be found only if signals from more than 3
