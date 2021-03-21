@@ -86,7 +86,7 @@ if (fid > 0)
     subplot(2, 2, 1);
     plot(1000 * timeScale(1:round(samplesPerCode/50)), ...
          data(1:round(samplesPerCode/50)));
-     
+
     axis tight;
     grid on;
     title ('Time domain plot');
@@ -94,8 +94,11 @@ if (fid > 0)
     
     %--- Frequency domain plot --------------------------------------------
     subplot(2,2,2);
-    pwelch(data-mean(data), 16384, 1024, 2048, settings.samplingFreq/1e6)
-    
+    if ~exist('OCTAVE_VERSION', 'builtin')
+        pwelch(data-mean(data), 16384, 1024, 2048, settings.samplingFreq/1e6)
+     else 
+        pwelch(data-mean(data), 16384, 0.0625, 2048, settings.samplingFreq/1e6)
+    end
     axis tight;
     grid on;
     title ('Frequency domain plot');
