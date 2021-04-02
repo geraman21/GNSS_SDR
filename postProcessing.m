@@ -76,7 +76,6 @@ if (fid > 0)
         % Find number of samples per spreading code
         samplesPerCode = round(settings.samplingFreq / ...
                            (settings.codeFreqBasis / settings.codeLength));
-        
         % Read data for acquisition. 11ms of signal are needed for the fine
         % frequency estimation
         data = fread(fid, 11*samplesPerCode, settings.dataType)';
@@ -87,7 +86,7 @@ if (fid > 0)
 
         plotAcquisition(acqResults);
     end
-
+    
 %% Initialize channels and prepare for the run ============================
 
     % Start further processing only if a GNSS signal was acquired (the
