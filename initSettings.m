@@ -55,7 +55,7 @@ settings.skipNumberOfBytes     = 0;
 % This is a "default" name of the data file (signal record) to be used in
 % the post-processing mode
 settings.fileName           = ...
-   '..\GPSdata-DiscreteComponents-fs38_192-if9_55.bin';
+   '../GPSdata-DiscreteComponents-fs38_192-if9_55.bin';
 % Data type used to store one sample
 settings.dataType           = 'int8';
 
@@ -69,7 +69,7 @@ settings.codeLength         = 1023;
 
 %% Acquisition settings ===================================================
 % Skips acquisition in the script postProcessing.m if set to 1
-settings.skipAcquisition    = 0;
+settings.skipAcquisition    = 1;
 % List of satellites to look for. Some satellites can be excluded to speed
 % up acquisition
 settings.acqSatelliteList   = 1:32;         %[PRN numbers]

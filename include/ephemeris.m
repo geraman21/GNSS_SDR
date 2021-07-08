@@ -69,7 +69,6 @@ for i = 1:5
 
     %--- "Cut" one sub-frame's bits ---------------------------------------
     subframe = bits(300*(i-1)+1 : 300*i);
-
     %--- Correct polarity of the data bits in all 10 words ----------------
     for j = 1:10
         [subframe(30*(j-1)+1 : 30*j)] = ...
@@ -147,7 +146,7 @@ for i = 1:5
             % Not decoded at the moment.
 
     end % switch subframeID ...
-
+    
 end % for all 5 sub-frames ...
 
 %% Compute the time of week (TOW) of the first sub-frames in the array ====

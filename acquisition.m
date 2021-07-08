@@ -140,10 +140,8 @@ for PRN = settings.acqSatelliteList
     
     %--- Find the correlation peak and the carrier frequency --------------
     [peakSize frequencyBinIndex] = max(max(results, [], 2));
-    disp(max(results, [], 2));
     %--- Find code phase of the same correlation peak ---------------------
     [peakSize codePhase] = max(max(results));
-    disp(max(results));
 
     %--- Find 1 chip wide C/A code phase exclude range around the peak ----
     samplesPerCodeChip   = round(settings.samplingFreq / settings.codeFreqBasis);

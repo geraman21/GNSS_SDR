@@ -61,12 +61,12 @@ for channelNr = 1:8
     %--- Compute the travel times -----------------------------------------
     travelTime(channelNr) = ...
         trackResults(channelNr).absoluteSample(msOfTheSignal(channelNr)) / samplesPerCode;
+    disp(travelTime(channelNr));
 end
 
 %--- Truncate the travelTime and compute pseudoranges ---------------------
 minimum         = floor(min(travelTime));
 travelTime      = travelTime - minimum + settings.startOffset;
-
 %--- Convert travel time to a distance ------------------------------------
 % The speed of light must be converted from meters per second to meters
 % per millisecond. 

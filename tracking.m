@@ -143,6 +143,7 @@ for channelNr = 1:settings.numberOfChannels
         %carrier/Costas loop parameters
         oldCarrNco   = 0.0;
         oldCarrError = 0.0;
+        test = 0;
 
         %=== Process the number of specified code periods =================
         for loopCnt =  1:codePeriods
@@ -220,6 +221,7 @@ for channelNr = 1:settings.numberOfChannels
             
             % Get the argument to sin/cos functions
             trigarg = ((carrFreq * 2.0 * pi) .* time) + remCarrPhase;
+            temp = (carrFreq * 2.0 * pi) .* time;
             remCarrPhase = rem(trigarg(blksize+1), (2 * pi));
             
             % Finally compute the signal to mix the collected data to bandband
@@ -267,7 +269,14 @@ for channelNr = 1:settings.numberOfChannels
             
             % Modify code freq based on NCO command
             codeFreq = settings.codeFreqBasis - codeNco;
-            
+            if (test < 150)
+               % disp(test + " - carrNCO: " + carrNco);
+               % disp(test + " - codeNCO: " + codeNco);
+               
+                % disp(remCarrPhase);
+               % disp(round(iBasebandSignal(1:100)));
+            end
+            test = test + 1;
             trackResults(channelNr).codeFreq(loopCnt) = codeFreq;
 
 %% Record various measures to show in postprocessing ----------------------

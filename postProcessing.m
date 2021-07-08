@@ -107,7 +107,7 @@ if (fid > 0)
 
     % Process all channels for given data block
     [trackResults, channel] = tracking(fid, channel, settings);
-
+        trackResults = trackingResults;
     % Close the data file
     fclose(fid);
     
@@ -117,7 +117,7 @@ if (fid > 0)
     % Auto save the acquisition & tracking results to a file to allow
     % running the positioning solution afterwards.
     disp('   Saving Acq & Tracking results to file "trackingResults.mat"')
-    save('trackingResults', ...
+     save('trackingResults', ...
                       'trackResults', 'settings', 'acqResults', 'channel');                  
 
 %% Calculate navigation solutions =========================================

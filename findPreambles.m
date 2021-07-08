@@ -88,7 +88,6 @@ for channelNr = activeChnList
     index = find(...
         abs(tlmXcorrResult(xcorrLength : xcorrLength * 2 - 1)) > 153)' + ...
         searchStartOffset;
-
 %% Analyze detected preamble like patterns ================================
     for i = 1:size(index) % For each occurrence
 
@@ -127,7 +126,6 @@ for channelNr = activeChnList
                 % Parity was OK. Record the preamble start position. Skip
                 % the rest of preamble pattern checking for this channel
                 % and process next channel. 
-                
                 firstSubFrame(channelNr) = index(i);
                 break;    
             end % if parity is OK ...

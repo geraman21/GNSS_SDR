@@ -61,7 +61,6 @@ end
 %% Find preamble start positions ==========================================
 
 [subFrameStart, activeChnList] = findPreambles(trackResults, settings);
-
 %% Decode ephemerides =====================================================
 
 for channelNr = activeChnList
@@ -92,7 +91,7 @@ for channelNr = activeChnList
     %=== Decode ephemerides and TOW of the first sub-frame ================
     [eph(trackResults(channelNr).PRN), TOW] = ...
                             ephemeris(navBitsBin(2:1501)', navBitsBin(1));
-
+    
     %--- Exclude satellite if it does not have the necessary nav data -----
     if (isempty(eph(trackResults(channelNr).PRN).IODC) || ...
         isempty(eph(trackResults(channelNr).PRN).IODE_sf2) || ...
@@ -155,19 +154,15 @@ for currMeasNr = 1:fix((settings.msToProcess - max(subFrameStart)) / ...
     navSolutions.channel.az(:, currMeasNr) = ...
                                          NaN(settings.numberOfChannels, 1);
                                      
-   disp("num of channels after init of current meas - " +  size(activeChnList, 2));
-
 %% Find pseudoranges ======================================================
     navSolutions.channel.rawP(:, currMeasNr) = calculatePseudoranges(...
             trackResults, ...
             subFrameStart + settings.navSolPeriod * (currMeasNr-1), ...
             activeChnList, settings);
-   disp("num of channels after find pseudoranges - " +  size(activeChnList, 2));
 %% Find satellites positions and clocks corrections =======================
     [satPositions, satClkCorr] = satpos(transmitTime, ...
                                         [trackResults(activeChnList).PRN], ...
                                         eph, settings);
-   disp("num of channels after after find sat positions - " +  size(activeChnList, 2));
 %% Find receiver position =================================================
 
     % 3D receiver position can be found only if signals from more than 3

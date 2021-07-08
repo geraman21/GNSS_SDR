@@ -57,6 +57,10 @@ if (ndat(2) ~= 1)
     ndat(3:26)= -1 .* ndat(3:26);  % Also could just negate
 end
 
+%disp(ndat);
+
+%disp("==============================================");
+
 %--- Calculate 6 parity bits ----------------------------------------------
 % The elements of the ndat array correspond to the bits showed in the table
 % 20-XIV (ICD-200C document) in the following way:
